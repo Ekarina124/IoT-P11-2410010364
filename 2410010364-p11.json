@@ -1,0 +1,257 @@
+[
+    {
+        "id": "d0ff9029b11b9c56",
+        "type": "tab",
+        "label": "Tugas Pertemuan 10 - Relay & PWM",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f9d597674fedae5c",
+        "type": "mqtt in",
+        "z": "d0ff9029b11b9c56",
+        "name": "Suhu dari Python",
+        "topic": "iot/2410010364/sensor/suhu",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "mqtt_broker_local",
+        "inputs": 0,
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "2019eca95273e763"
+            ]
+        ]
+    },
+    {
+        "id": "2019eca95273e763",
+        "type": "function",
+        "z": "d0ff9029b11b9c56",
+        "name": "Parse Float",
+        "func": "msg.payload = parseFloat(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "x": 400,
+        "y": 100,
+        "wires": [
+            [
+                "6f0f76ef5c4c8b32"
+            ]
+        ]
+    },
+    {
+        "id": "6f0f76ef5c4c8b32",
+        "type": "ui_gauge",
+        "z": "d0ff9029b11b9c56",
+        "name": "Suhu",
+        "group": "f27da6c4e44ad970",
+        "order": 1,
+        "width": "6",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Suhu (°C)",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 50,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 620,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "54bd395100564510",
+        "type": "ui_switch",
+        "z": "d0ff9029b11b9c56",
+        "name": "Kontrol Relay",
+        "label": "Relay (GPIO 26)",
+        "tooltip": "Klik untuk ON/OFF",
+        "group": "8ea34a6d2619496a",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "decouple": "false",
+        "topic": "iot/2410010364/aktuator/relay",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "230bcea2bf3c233d"
+            ]
+        ]
+    },
+    {
+        "id": "d133bcc59f7e7f16",
+        "type": "ui_slider",
+        "z": "d0ff9029b11b9c56",
+        "name": "PWM LED",
+        "label": "PWM LED (GPIO 2)",
+        "tooltip": "",
+        "group": "8ea34a6d2619496a",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "outs": "end",
+        "topic": "iot/2410010364/aktuator/pwm",
+        "topicType": "str",
+        "min": 0,
+        "max": 255,
+        "step": 1,
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "230bcea2bf3c233d"
+            ]
+        ]
+    },
+    {
+        "id": "230bcea2bf3c233d",
+        "type": "mqtt out",
+        "z": "d0ff9029b11b9c56",
+        "name": "Perintah ke Perangkat",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "broker": "mqtt_broker_local",
+        "x": 470,
+        "y": 230,
+        "wires": []
+    },
+    {
+        "id": "4674806d85f48596",
+        "type": "mqtt in",
+        "z": "d0ff9029b11b9c56",
+        "name": "Status Relay",
+        "topic": "iot/2410010364/status/relay",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "mqtt_broker_local",
+        "inputs": 0,
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "d95e2b0d2b4c2a5a"
+            ]
+        ]
+    },
+    {
+        "id": "d95e2b0d2b4c2a5a",
+        "type": "ui_text",
+        "z": "d0ff9029b11b9c56",
+        "group": "8ea34a6d2619496a",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "name": "Status Relay",
+        "label": "Status Relay",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 420,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "eeb7d6d26ec444a2",
+        "type": "mqtt in",
+        "z": "d0ff9029b11b9c56",
+        "name": "Status PWM",
+        "topic": "iot/2410010364/status/pwm",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "mqtt_broker_local",
+        "inputs": 0,
+        "x": 180,
+        "y": 400,
+        "wires": [
+            [
+                "d9cafaa40d4b8e76"
+            ]
+        ]
+    },
+    {
+        "id": "d9cafaa40d4b8e76",
+        "type": "ui_text",
+        "z": "d0ff9029b11b9c56",
+        "group": "8ea34a6d2619496a",
+        "order": 4,
+        "width": "6",
+        "height": "1",
+        "name": "Status PWM",
+        "label": "Nilai PWM",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 420,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "mqtt_broker_local",
+        "type": "mqtt-broker",
+        "name": "Mosquitto Lokal",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "NodeRED-Dashboard",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "f27da6c4e44ad970",
+        "type": "ui_group",
+        "name": "Monitoring",
+        "tab": "4e7450becce40d2c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "8ea34a6d2619496a",
+        "type": "ui_group",
+        "name": "Kontrol",
+        "tab": "4e7450becce40d2c",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "4e7450becce40d2c",
+        "type": "ui_tab",
+        "name": "IoT Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "54fb49ba6387e54c",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
